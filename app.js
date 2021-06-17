@@ -46,6 +46,14 @@ ghostList = [
     {
         type: 'Yurei',
         evidence: ['Freezing Temperatures', 'Ghost Orb', 'Ghost Writing']
+    },
+    {
+        type: 'Hantu',
+        evidence: ['Fingerprints', 'Ghost Orb', 'Ghost Writing']
+    },
+    {
+        type: 'Yokai',
+        evidence: ['Freezing Temperatures', 'Ghost Orb', 'Ghost Writing']
     }
 ];
 // console.log(ghostList);
@@ -60,13 +68,13 @@ evidenceTwoRadioList = document.querySelectorAll('[name=evidenceTwoRadio]');
 
 message = document.querySelector('#message');
 
-evidenceOneForm.addEventListener('change', getFinalEvidence)
-evidenceTwoForm.addEventListener('change', getFinalEvidence)
+evidenceOneForm.addEventListener('change', getFinalEvidence);
+evidenceTwoForm.addEventListener('change', getFinalEvidence);
 
 getFinalEvidence();
 
 // Get third evidence
-function getFinalEvidence() {    
+function getFinalEvidence() {
     possibleGhostType = [];
     output = '';
 
@@ -76,14 +84,14 @@ function getFinalEvidence() {
     // console.log(evidenceTwo);
 
     if (evidenceOne === '' || evidenceTwo === '') {
-        // If either of the first 2 evidences are empty 
+        // If either of the first 2 evidences are empty
         message.innerHTML = `<h4>Choose 2 type of evidence</h4>`;
     } else if (evidenceOne === evidenceTwo) {
         // If selected evidence are the same
         message.innerHTML = `<h4>Evidence can\'t be the same</h4>`;
-        console.log('Evidence can\'t be the same');
+        console.log("Evidence can't be the same");
     } else {
-        // If first 2 evidence aren't empty or the same 
+        // If first 2 evidence aren't empty or the same
         message.innerHTML = `<h4></h4>`;
 
         ghostList.forEach(ghost => {
@@ -104,25 +112,24 @@ function getFinalEvidence() {
                     missingEvidence = ghost.evidence[2];
                 }
 
-                possibleGhostType.push({type: ghost.type, missingEvidence});
+                possibleGhostType.push({ type: ghost.type, missingEvidence });
             }
-        })
+        });
 
         // Save missing evidences and corresponding ghost type
-        possibleGhostType.forEach(el => output += `<li>${el.type} --> ${el.missingEvidence}</li>`)
-        
+        possibleGhostType.forEach(el => (output += `<li>${el.type} --> ${el.missingEvidence}</li>`));
     }
 
     document.querySelector('#evidence3List').innerHTML = `<ul>${output}</ul>`;
-};
+}
 
 // Gets the checked radio
 function getCheckedEvidence(evidenceList) {
     let evidence = '';
-    evidenceList.forEach((radio) => {
+    evidenceList.forEach(radio => {
         if (radio.checked) {
             evidence = radio.value;
         }
     });
-    return evidence
+    return evidence;
 }
